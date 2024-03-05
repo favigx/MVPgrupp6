@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 
 @Transactional(Transactional.TxType.SUPPORTS)
 @ApplicationScoped
@@ -22,4 +23,14 @@ public class ProductService {
         List<Product> products = em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
         return products;
     }
+
+    public Product findProduct(Long productId) {
+        Product product = em.find(Product.class, productId);
+
+        if (product == null) {
+            throw new NotFoundException("Finns inga robot med angivet id");
+        }
+        return product;
+    }
+
 }
