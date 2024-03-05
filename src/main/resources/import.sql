@@ -1,13 +1,13 @@
-insert into Customer (fName, lName, email, phoneNr, password) values ('Magnum', 'Antoniutti', 'mantoniutti0@jalbum.net', '526-795-9831', 'zS1#&1JA5Qs');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Hedwiga', 'Andreone', 'handreone1@google.nl', '870-132-2088', 'sT6>de6`<C');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Wendeline', 'Towne', 'wtowne2@123-reg.co.uk', '105-483-9697', 'tR2@EofOMk)%uw&');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Ofilia', 'Carnow', 'ocarnow3@google.com.hk', '846-735-2824', 'eK6*u<Txp0');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Daloris', 'Crowth', 'dcrowth4@constantcontact.com', '160-427-4738', 'cN2&SeNur%|GF,l.');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Ezmeralda', 'Charrette', 'echarrette5@geocities.com', '477-515-5115', 'cD7>7Gu1pwwR');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Kippar', 'Schwandermann', 'kschwandermann6@paginegialle.it', '911-728-6324', 'nL7.J!LIy)2eU`');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Mallorie', 'Southernwood', 'msouthernwood7@shutterfly.com', '698-688-8165', 'hY3(s<@z_');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Saunderson', 'Arendt', 'sarendt8@bloglines.com', '880-837-0076', 'tO1|RmOBj3bKk,lJ');
-insert into Customer (fName, lName, email, phoneNr, password) values ('Katharyn', 'Mulvany', 'kmulvany9@bravesites.com', '597-787-3490', 'jR9!kNc2~"i)%p');
+insert into Customers (fName, lName, email, phoneNr) values ('Magnum', 'Antoniutti', 'mantoniutti0@jalbum.net', '526-795-9831');
+insert into Customers (fName, lName, email, phoneNr) values ('Hedwiga', 'Andreone', 'handreone1@google.nl', '870-132-2088');
+insert into Customers (fName, lName, email, phoneNr) values ('Wendeline', 'Towne', 'wtowne2@123-reg.co.uk', '105-483-9697');
+insert into Customers (fName, lName, email, phoneNr) values ('Ofilia', 'Carnow', 'ocarnow3@google.com.hk', '846-735-2824');
+insert into Customers (fName, lName, email, phoneNr) values ('Daloris', 'Crowth', 'dcrowth4@constantcontact.com', '160-427-4738');
+insert into Customers (fName, lName, email, phoneNr) values ('Ezmeralda', 'Charrette', 'echarrette5@geocities.com', '477-515-5115');
+insert into Customers (fName, lName, email, phoneNr) values ('Kippar', 'Schwandermann', 'kschwandermann6@paginegialle.it', '911-728-6324');
+insert into Customers (fName, lName, email, phoneNr) values ('Mallorie', 'Southernwood', 'msouthernwood7@shutterfly.com', '698-688-8165');
+insert into Customers (fName, lName, email, phoneNr) values ('Saunderson', 'Arendt', 'sarendt8@bloglines.com', '880-837-0076');
+insert into Customers (fName, lName, email, phoneNr) values ('Katharyn', 'Mulvany', 'kmulvany9@bravesites.com', '597-787-3490');
 
 insert into Product (productName, price, description, imgUrl) values ('Gary', '76.9', 'Hej', 'https://robohash.org/etasperioresrerum.png?size=50x50&set=set1');
 insert into Product (productName, price, description, imgUrl) values ('Kipp', '921', 'Hej', 'https://robohash.org/liberoassumendamolestiae.png?size=50x50&set=set1');
