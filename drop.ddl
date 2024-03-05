@@ -1,5 +1,5 @@
 
-    drop table if exists Customer cascade;
+    drop table if exists Customers cascade;
 
     drop table if exists Order cascade;
 

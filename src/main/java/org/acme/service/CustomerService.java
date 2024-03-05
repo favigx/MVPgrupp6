@@ -1,6 +1,8 @@
 package org.acme.service;
 
-import org.acme.model.Customer;
+import java.util.List;
+
+import org.acme.model.Customers;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,10 +19,16 @@ public class CustomerService {
     EntityManager em;
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Customer createCustomer(Customer customer) {
+    public Customers createCustomer(Customers customer) {
         em.persist(customer);
         return customer;
 
     }
+
+    public List<Customers> findAll() {
+        List<Customers> customers = em.createQuery("SELECT c FROM Customers c", Customers.class).getResultList();
+        return customers;
+    }
+
 
 }

@@ -7,8 +7,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "Customer")
-public class Customer {
+@Table(name = "Customers")
+public class Customers {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Customer {
     private String email;
     @NotEmpty(message = "Du måste skriva något")
     private String phoneNr;
+    /* private String adress; */
 
     public long getCustomerId() {
         return customerId;
@@ -62,4 +63,12 @@ public class Customer {
     public void setPhoneNr(String phoneNr) {
         this.phoneNr = phoneNr;
     }
+
+   /*  public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    } */
 }
