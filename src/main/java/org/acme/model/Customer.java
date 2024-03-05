@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Customer")
@@ -13,11 +14,14 @@ public class Customer {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long customerId;
 
+    @NotEmpty(message = "Du måste skriva något")
     private String fName;
+    @NotEmpty(message = "Du måste skriva något")
     private String lName;
+    @NotEmpty(message = "Du måste skriva något")
     private String email;
-    private int phoneNr;
-    private String password;
+    @NotEmpty(message = "Du måste skriva något")
+    private String phoneNr;
 
     public long getCustomerId() {
         return customerId;
@@ -51,19 +55,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhoneNr() {
+    public String getPhoneNr() {
         return phoneNr;
     }
 
-    public void setPhoneNr(int phoneNr) {
+    public void setPhoneNr(String phoneNr) {
         this.phoneNr = phoneNr;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

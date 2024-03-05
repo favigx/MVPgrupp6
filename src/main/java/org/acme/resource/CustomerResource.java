@@ -26,7 +26,8 @@ public class CustomerResource {
     @POST
     public Response createCustomer(@Valid Customer customer) throws URISyntaxException {
         customer = customerService.createCustomer(customer);
-        URI createdUri = new URI(customer.getCustomerId().toString());
+        String customerIdString = String.valueOf(customer.getCustomerId());
+        URI createdUri = new URI(customerIdString);
         return Response.created(createdUri).entity(customer).build();
     }
 
