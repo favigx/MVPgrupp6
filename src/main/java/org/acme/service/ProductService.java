@@ -1,5 +1,6 @@
 package org.acme.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.model.Product;
@@ -19,6 +20,8 @@ public class ProductService {
     @Inject
     EntityManager em;
 
+    private List<Product> cart = new ArrayList<>();
+
     public List<Product> findAll() {
         List<Product> products = em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
         return products;
@@ -33,4 +36,13 @@ public class ProductService {
         return product;
     }
 
+    public void addToCart(Long productId) {
+        Product product = findProduct(productId);
+
+        cart.add(product);
+    }
+
+    public List<Product> getCart() {
+        return cart;
+    }
 }
