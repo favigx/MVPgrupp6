@@ -1,14 +1,10 @@
 package org.acme.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
-// import org.acme.config.StripeConfig;
 import org.acme.model.Product;
 import org.acme.service.ProductService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.stripe.param.billingportal.SessionCreateParams;
 
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Min;
@@ -42,6 +38,17 @@ public class ProductResource {
             return Response.noContent().build();
         }
         return Response.ok(products).build();
+    }
+
+    @GET
+    @Path("/category/{category}")
+    public Response getProductByCategory(@PathParam("category") String category) {
+        try {
+            List<Product> products = productService.findbyCategory(category);
+            return Response.ok(products).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Finns inga robotar med den kategorin").build();
+        }
     }
 
     @GET
