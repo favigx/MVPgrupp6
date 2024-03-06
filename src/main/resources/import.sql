@@ -9,13 +9,13 @@ insert into Customers (fName, lName, email, phoneNr) values ('Mallorie', 'Southe
 insert into Customers (fName, lName, email, phoneNr) values ('Saunderson', 'Arendt', 'sarendt8@bloglines.com', '880-837-0076');
 insert into Customers (fName, lName, email, phoneNr) values ('Katharyn', 'Mulvany', 'kmulvany9@bravesites.com', '597-787-3490');
 
-insert into Product (productName, price, description, imgUrl) values ('Gary', '76.9', 'Hej', 'https://robohash.org/etasperioresrerum.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Kipp', '921', 'Hej', 'https://robohash.org/liberoassumendamolestiae.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Indira', '039', 'Hej', 'https://robohash.org/temporibusreprehenderitipsam.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Levi', '766', 'Hej', 'https://robohash.org/estnondeserunt.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Tye', '557', 'Hej', 'https://robohash.org/nesciuntrerumeos.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Bailey', '338', 'Hej', 'https://robohash.org/eosconsecteturvoluptate.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Halette', '587', 'Hej', 'https://robohash.org/perferendisnihilnulla.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Vinny', '916', 'Hej', 'https://robohash.org/voluptasquibusdamperspiciatis.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Dayna', '334', 'Hej', 'https://robohash.org/quinumquamet.png?size=50x50&set=set1');
-insert into Product (productName, price, description, imgUrl) values ('Denice', '517', 'Hej', 'https://robohash.org/enimautenim.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Gary', '76.9', 'Städ', 'https://robohash.org/etasperioresrerum.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Kipp', '921', 'Läx', 'https://robohash.org/liberoassumendamolestiae.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Indira', '039', 'Läx', 'https://robohash.org/temporibusreprehenderitipsam.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Levi', '766', 'Städ', 'https://robohash.org/estnondeserunt.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Tye', '557', 'Hjälpreda', 'https://robohash.org/nesciuntrerumeos.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Bailey', '338', 'Hjälpreda', 'https://robohash.org/eosconsecteturvoluptate.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Halette', '587', 'Hjälpreda', 'https://robohash.org/perferendisnihilnulla.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Vinny', '916', 'Musik', 'https://robohash.org/voluptasquibusdamperspiciatis.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Dayna', '334', 'Musik', 'https://robohash.org/quinumquamet.png?size=50x50&set=set1');
+insert into Product (productName, price, category, imgUrl) values ('Denice', '517', 'Musik', 'https://robohash.org/enimautenim.png?size=50x50&set=set1');

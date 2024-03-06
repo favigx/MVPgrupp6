@@ -23,8 +23,7 @@ public class ProductService {
     private List<Product> cart = new ArrayList<>();
 
     public List<Product> findAll() {
-        List<Product> products = em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
-        return products;
+        return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
     }
 
     public Product findProduct(Long productId) {
@@ -34,6 +33,12 @@ public class ProductService {
             throw new NotFoundException("Finns inga robot med angivet id");
         }
         return product;
+    }
+
+    public List<Product> findbyCategory(String category) {
+        return em.createQuery("SELECT p FROM Product p WHERE p.category = :category", Product.class)
+                .setParameter("category", category)
+                .getResultList();
     }
 
     public void addToCart(Long productId) {

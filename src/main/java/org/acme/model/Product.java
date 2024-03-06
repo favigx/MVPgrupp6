@@ -17,7 +17,7 @@ public class Product {
 
     private String productName;
     private double price;
-    private String description;
+    private String category;
     private String imgUrl;
 
     public long getProductId() {
@@ -44,19 +44,19 @@ public class Product {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getImgUrl() {
         return imgUrl;
     }
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
