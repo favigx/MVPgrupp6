@@ -1,11 +1,13 @@
 package org.acme.model;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
+@ApplicationScoped
 @Table(name = "Product")
 public class Product {
 
