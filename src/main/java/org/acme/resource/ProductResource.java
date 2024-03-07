@@ -1,16 +1,15 @@
 package org.acme.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.model.Product;
 import org.acme.service.ProductService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-
 
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Min;
@@ -92,45 +91,50 @@ public class ProductResource {
     }
 
     @POST
-    @Path("/createcheckoutsession/{productId}")
-    public Response createCheckoutSession(@PathParam("productId") Long productId) {
-        Product product = productService.findProduct(productId);
-        String productName = product.getProductName();
-        Long productPrice = (long) (product.getPrice() * 100);
+    @Path("/createcheckoutsession")
+    public Response createCheckoutSession() {
+        List<Product> cartProducts = productService.getCart();
 
         Stripe.apiKey = "sk_test_51OqbvuEzGJNrPDWMELPy9umHiLxHrHT0dUCE4CxjrhmrG52MrmZK6MXOSFgCooLQsKuAsvbbLgn4wbL0uhpGmXAb00hdmx6bsQ";
 
-        List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
-        lineItems.add(
-            SessionCreateParams.LineItem.builder()
-                .setQuantity(1L)
-                .setPriceData(
-                    SessionCreateParams.LineItem.PriceData.builder()
-                        .setCurrency("sek")
-                        .setUnitAmount(productPrice)
-                        .setProductData(
-                            SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                .setName(productName)
-                                .build())
-                        .build())
-                .build()
-        );
-    
-                SessionCreateParams params =
-                    SessionCreateParams.builder()
-                        .setSuccessUrl("https://example.com/success")
-                        .setCancelUrl("https://example.com/cancel")
-                        .addPaymentMethodType(PaymentMethodType.CARD)
-                        .setMode(SessionCreateParams.Mode.PAYMENT)
-                        .addAllLineItem(lineItems)
-                        .build();
+        if (cartProducts.isEmpty()) {
+            return Response.noContent().build();
+        }
 
-                try {
-                    Session session = Session.create(params);
-                    return Response.ok(session.getUrl()).build();
-                } catch (Exception e) {
-                    return Response.serverError().entity(e.getMessage()).build();
-                }
+        List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
+
+        for (Product product : cartProducts) {
+            String productName = product.getProductName();
+            Long productPrice = (long) (product.getPrice() * 100);
+            lineItems.add(
+                    SessionCreateParams.LineItem.builder()
+                            .setQuantity(1L)
+                            .setPriceData(
+                                    SessionCreateParams.LineItem.PriceData.builder()
+                                            .setCurrency("sek")
+                                            .setUnitAmount(productPrice)
+                                            .setProductData(
+                                                    SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                            .setName(productName)
+                                                            .build())
+                                            .build())
+                            .build());
+        }
+
+        SessionCreateParams params = SessionCreateParams.builder()
+                .setSuccessUrl("https://example.com/success")
+                .setCancelUrl("https://example.com/cancel")
+                .addPaymentMethodType(PaymentMethodType.CARD)
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .addAllLineItem(lineItems)
+                .build();
+
+        try {
+            Session session = Session.create(params);
+            return Response.ok(session.getUrl()).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
 
     @GET
