@@ -17,6 +17,7 @@ public class Product {
 
     private String productName;
     private double price;
+    private Long quantity;
     private String category;
     private String imgUrl;
 
@@ -58,5 +59,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
     }
 }
