@@ -22,13 +22,10 @@ public class CustomerService {
     public Customers createCustomer(Customers customer) {
         em.persist(customer);
         return customer;
-
     }
 
     public List<Customers> findAll() {
         List<Customers> customers = em.createQuery("SELECT c FROM Customers c", Customers.class).getResultList();
         return customers;
     }
-
-
 }

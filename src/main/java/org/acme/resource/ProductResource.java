@@ -14,15 +14,17 @@ import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Min;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import com.stripe.param.checkout.SessionCreateParams.PaymentMethodType; // Add this import statement
+import com.stripe.param.checkout.SessionCreateParams.PaymentMethodType;
 
 @Path("/api/product")
 @Produces(MediaType.APPLICATION_JSON)
@@ -86,8 +88,34 @@ public class ProductResource {
         if (cartProducts.isEmpty()) {
             return Response.noContent().build();
         }
-
         return Response.ok(cartProducts).build();
+    }
+
+    @DELETE
+    @Path("/remove/{productId}")
+    public Response removeProductFromCart(@PathParam("productId") Long productId) {
+        try {
+            productService.removeProductFromCart(productId);
+            return Response.noContent().build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Finns inga robotar med det ID").build();
+        }
+    }
+
+    @PUT
+    @Path("increase/{productId}")
+    public Response increaseQuantity(@PathParam("productId") Long productId) {
+
+        productService.increaseQuantity(productId);
+        return Response.ok("").build();
+    }
+
+    @PUT
+    @Path("decrease/{productId}")
+    public Response decreaseQuantity(@PathParam("productId") Long productId) {
+
+        productService.decreaseQuantity(productId);
+        return Response.ok("").build();
     }
 
     @POST
@@ -106,9 +134,10 @@ public class ProductResource {
         for (Product product : cartProducts) {
             String productName = product.getProductName();
             Long productPrice = (long) (product.getPrice() * 100);
+            Long productQuantity = product.getQuantity();
             lineItems.add(
                     SessionCreateParams.LineItem.builder()
-                            .setQuantity(1L)
+                            .setQuantity(productQuantity)
                             .setPriceData(
                                     SessionCreateParams.LineItem.PriceData.builder()
                                             .setCurrency("sek")

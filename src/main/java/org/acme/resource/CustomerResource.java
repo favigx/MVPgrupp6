@@ -32,14 +32,15 @@ public class CustomerResource {
     CustomerService customerService;
 
     @POST
-    public Response createCustomer(@Valid Customers customer, @HeaderParam("apiKey") String apiKey) throws URISyntaxException, StripeException {
+    public Response createCustomer(@Valid Customers customer, @HeaderParam("apiKey") String apiKey)
+            throws URISyntaxException, StripeException {
         customer = customerService.createCustomer(customer);
         String customerIdString = String.valueOf(customer.getCustomerId());
         CustomerCreateParams params = CustomerCreateParams.builder()
                 .setEmail(customer.getEmail())
                 .setName(customer.getfName())
                 .build();
-                RequestOptions requestOptions = RequestOptions.builder().setApiKey(apiKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(apiKey).build();
         Customer.create(params, requestOptions);
         URI createdUri = new URI(customerIdString);
         return Response.created(createdUri).entity(customer).build();
@@ -55,4 +56,3 @@ public class CustomerResource {
         return Response.ok(customers).build();
     }
 }
-

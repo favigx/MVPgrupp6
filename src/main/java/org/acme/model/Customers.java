@@ -22,7 +22,6 @@ public class Customers {
     private String email;
     @NotEmpty(message = "Du måste skriva något")
     private String phoneNr;
-    /* private String adress; */
 
     public long getCustomerId() {
         return customerId;
@@ -63,12 +62,4 @@ public class Customers {
     public void setPhoneNr(String phoneNr) {
         this.phoneNr = phoneNr;
     }
-
-   /*  public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    } */
 }
