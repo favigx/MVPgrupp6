@@ -43,8 +43,21 @@ public class ProductService {
 
     public void addToCart(Long productId) {
         Product product = findProduct(productId);
+        boolean alreadyInCart = false;
 
-        cart.add(product);
+        for (Product cartProduct : cart) {
+            if (cartProduct.getProductId() == productId) {
+                cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+                alreadyInCart = true;
+
+                break;
+            }
+        }
+
+        if (!alreadyInCart) {
+            product.setQuantity(1L);
+            cart.add(product);
+        }
     }
 
     public List<Product> getCart() {
