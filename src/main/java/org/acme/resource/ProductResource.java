@@ -123,7 +123,7 @@ public class ProductResource {
     public Response createCheckoutSession() {
         List<Product> cartProducts = productService.getCart();
 
-        Stripe.apiKey = "sk_test_51OqbvuEzGJNrPDWMELPy9umHiLxHrHT0dUCE4CxjrhmrG52MrmZK6MXOSFgCooLQsKuAsvbbLgn4wbL0uhpGmXAb00hdmx6bsQ";
+        Stripe.apiKey = stripeKey;
 
         if (cartProducts.isEmpty()) {
             return Response.noContent().build();
