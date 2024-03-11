@@ -79,12 +79,13 @@ public class ProductService {
     }
 
     public void decreaseQuantity(long productId) {
+
         for (Product product : cart) {
             if (product.getProductId() == productId) {
                 product.setQuantity(Math.max(0, product.getQuantity() - 1));
 
                 if (product.getQuantity() == 0) {
-                    cart.removeIf(productInCart -> product.getProductId() == productId);
+                    cart.removeIf(productInCart -> productInCart.getProductId() == productId);
                 }
                 break;
             }
