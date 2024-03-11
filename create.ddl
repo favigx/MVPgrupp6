@@ -1,11 +1,4 @@
 
-    create table Cart (
-        totalPrice float(53) not null,
-        cartId bigserial not null,
-        productId bigint not null,
-        primary key (cartId)
-    );
-
     create table Customers (
         customerId bigserial not null,
         email varchar(255),
@@ -21,14 +14,6 @@
         dateTime timestamp(6),
         orderId bigserial not null,
         primary key (orderId)
-    );
-
-    create table OrderProduct (
-        quantity integer not null,
-        orderId bigint not null,
-        orderProductId bigserial not null,
-        productId bigint not null,
-        primary key (orderProductId)
     );
 
     create table Product (
