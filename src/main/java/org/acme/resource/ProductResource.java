@@ -158,8 +158,8 @@ public class ProductResource {
         }
 
         SessionCreateParams params = SessionCreateParams.builder()
-                .setSuccessUrl("https://example.com/success")
-                .setCancelUrl("https://example.com/cancel")
+                .setSuccessUrl("http://127.0.0.1:5500/success.html")
+                .setCancelUrl("http://127.0.0.1:5500/cancel.html")
                 .addPaymentMethodType(PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .addAllLineItem(lineItems)
