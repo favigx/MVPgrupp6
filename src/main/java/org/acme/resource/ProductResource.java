@@ -102,6 +102,13 @@ public class ProductResource {
         }
     }
 
+    @GET
+    @Path("/clearcart")
+    public Response clearCart() {
+        productService.clearCart();
+        return Response.ok("").build();
+    }
+
     @PUT
     @Path("increase/{productId}")
     public Response increaseQuantity(@PathParam("productId") Long productId) {
@@ -160,6 +167,7 @@ public class ProductResource {
 
         try {
             Session session = Session.create(params);
+            // productService.clearCart();
             return Response.ok(session.getUrl()).build();
         } catch (Exception e) {
             return Response.serverError().entity(e.getMessage()).build();

@@ -91,4 +91,8 @@ public class ProductService {
             }
         }
     }
+
+    public void clearCart() {
+        cart.clear();
+    }
 }
