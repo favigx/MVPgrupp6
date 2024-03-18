@@ -14,11 +14,9 @@ import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Min;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -33,9 +31,6 @@ public class ProductResource {
 
     @Inject
     ProductService productService;
-
-    @Inject
-    Product product;
 
     @Inject
     @ConfigProperty(name = "stripe.apiKey")
@@ -73,13 +68,6 @@ public class ProductResource {
         }
     }
 
-    @POST
-    @Path("/addtocart/{productId}")
-    public Response addToCart(@PathParam("productId") Long productId) {
-        productService.addToCart(productId);
-        return Response.ok("").build();
-    }
-
     @GET
     @Path("/cart")
     public Response getCart() {
@@ -91,17 +79,6 @@ public class ProductResource {
         return Response.ok(cartProducts).build();
     }
 
-    @DELETE
-    @Path("/remove/{productId}")
-    public Response removeProductFromCart(@PathParam("productId") Long productId) {
-        try {
-            productService.removeProductFromCart(productId);
-            return Response.noContent().build();
-        } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Finns inga robotar med det ID").build();
-        }
-    }
-
     @GET
     @Path("/clearcart")
     public Response clearCart() {
@@ -109,62 +86,44 @@ public class ProductResource {
         return Response.ok("").build();
     }
 
-    @PUT
-    @Path("increase/{productId}")
-    public Response increaseQuantity(@PathParam("productId") Long productId) {
-
-        productService.increaseQuantity(productId);
-        return Response.ok("").build();
-    }
-
-    @PUT
-    @Path("decrease/{productId}")
-    public Response decreaseQuantity(@PathParam("productId") Long productId) {
-
-        productService.decreaseQuantity(productId);
-        return Response.ok("").build();
-    }
-
     @POST
     @Path("/createcheckoutsession")
-    public Response createCheckoutSession() {
-        List<Product> cartProducts = productService.getCart();
-
+    public Response createCheckoutSession(List<Product> cartItems) {
         Stripe.apiKey = stripeKey;
-
-        if (cartProducts.isEmpty()) {
+    
+        if (cartItems == null || cartItems.isEmpty()) {
             return Response.noContent().build();
         }
-
+    
         List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
-
-        for (Product product : cartProducts) {
+    
+        for (Product product : cartItems) {
             String productName = product.getProductName();
-            Long productPrice = (long) (product.getPrice() * 100);
+            Long price = (long) (product.getPrice() * 100);
             Long productQuantity = product.getQuantity();
             lineItems.add(
-                    SessionCreateParams.LineItem.builder()
-                            .setQuantity(productQuantity)
-                            .setPriceData(
-                                    SessionCreateParams.LineItem.PriceData.builder()
-                                            .setCurrency("sek")
-                                            .setUnitAmount(productPrice)
-                                            .setProductData(
-                                                    SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                            .setName(productName)
-                                                            .build())
-                                            .build())
-                            .build());
+                SessionCreateParams.LineItem.builder()
+                    .setQuantity(productQuantity)
+                    .setPriceData(
+                        SessionCreateParams.LineItem.PriceData.builder()
+                            .setCurrency("sek")
+                            .setUnitAmount(price)
+                            .setProductData(
+                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                    .setName(productName)
+                                    .build())
+                            .build())
+                    .build());
         }
-
+    
         SessionCreateParams params = SessionCreateParams.builder()
-                .setSuccessUrl("http://127.0.0.1:5500/success.html")
-                .setCancelUrl("http://127.0.0.1:5500/cancel.html")
-                .addPaymentMethodType(PaymentMethodType.CARD)
-                .setMode(SessionCreateParams.Mode.PAYMENT)
-                .addAllLineItem(lineItems)
-                .build();
-
+            .setSuccessUrl("http://127.0.0.1:5500/success.html")
+            .setCancelUrl("http://127.0.0.1:5500/cancel.html")
+            .addPaymentMethodType(PaymentMethodType.CARD)
+            .setMode(SessionCreateParams.Mode.PAYMENT)
+            .addAllLineItem(lineItems)
+            .build();
+    
         try {
             Session session = Session.create(params);
             // productService.clearCart();

@@ -41,56 +41,9 @@ public class ProductService {
                 .getResultList();
     }
 
-    public void addToCart(Long productId) {
-        Product product = findProduct(productId);
-        boolean alreadyInCart = false;
-
-        for (Product cartProduct : cart) {
-            if (cartProduct.getProductId() == productId) {
-                cartProduct.setQuantity(cartProduct.getQuantity() + 1);
-                alreadyInCart = true;
-
-                break;
-            }
-        }
-
-        if (!alreadyInCart) {
-            product.setQuantity(1L);
-            cart.add(product);
-        }
-    }
-
     public List<Product> getCart() {
         return cart;
-    }
-
-    @Transactional(Transactional.TxType.REQUIRED)
-    public void removeProductFromCart(Long productId) {
-        cart.removeIf(product -> product.getProductId() == productId);
-    }
-
-    public void increaseQuantity(long productId) {
-        for (Product product : cart) {
-            if (product.getProductId() == productId) {
-                product.setQuantity(product.getQuantity() + 1);
-                break;
-            }
-        }
-    }
-
-    public void decreaseQuantity(long productId) {
-
-        for (Product product : cart) {
-            if (product.getProductId() == productId) {
-                product.setQuantity(Math.max(0, product.getQuantity() - 1));
-
-                if (product.getQuantity() == 0) {
-                    cart.removeIf(productInCart -> productInCart.getProductId() == productId);
-                }
-                break;
-            }
-        }
-    }
+    }   
 
     public void clearCart() {
         cart.clear();
