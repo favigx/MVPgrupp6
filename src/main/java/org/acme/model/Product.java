@@ -20,9 +20,18 @@ public class Product {
     private Long quantity;
     private String category;
     private String imgUrl;
+    private String description;
 
     public long getProductId() {
         return productId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setProductId(long productId) {
