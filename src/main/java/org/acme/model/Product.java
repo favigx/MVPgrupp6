@@ -1,6 +1,7 @@
 package org.acme.model;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,6 +21,7 @@ public class Product {
     private Long quantity;
     private String category;
     private String imgUrl;
+    @Column(length = 1000)
     private String description;
 
     public long getProductId() {
