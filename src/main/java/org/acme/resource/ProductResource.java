@@ -68,74 +68,49 @@ public class ProductResource {
         }
     }
 
-    @GET
-    @Path("/cart")
-    public Response getCart() {
-        List<Product> cartProducts = productService.getCart();
-
-        if (cartProducts.isEmpty()) {
-            return Response.noContent().build();
-        }
-        return Response.ok(cartProducts).build();
-    }
-
-    @GET
-    @Path("/clearcart")
-    public Response clearCart() {
-        productService.clearCart();
-        return Response.ok("").build();
-    }
-
     @POST
     @Path("/createcheckoutsession")
     public Response createCheckoutSession(List<Product> cartItems) {
         Stripe.apiKey = stripeKey;
-    
+
         if (cartItems == null || cartItems.isEmpty()) {
             return Response.noContent().build();
         }
-    
+
         List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();
-    
+
         for (Product product : cartItems) {
             String productName = product.getProductName();
             Long price = (long) (product.getPrice() * 100);
             Long productQuantity = product.getQuantity();
             lineItems.add(
-                SessionCreateParams.LineItem.builder()
-                    .setQuantity(productQuantity)
-                    .setPriceData(
-                        SessionCreateParams.LineItem.PriceData.builder()
-                            .setCurrency("sek")
-                            .setUnitAmount(price)
-                            .setProductData(
-                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                    .setName(productName)
-                                    .build())
-                            .build())
-                    .build());
+                    SessionCreateParams.LineItem.builder()
+                            .setQuantity(productQuantity)
+                            .setPriceData(
+                                    SessionCreateParams.LineItem.PriceData.builder()
+                                            .setCurrency("sek")
+                                            .setUnitAmount(price)
+                                            .setProductData(
+                                                    SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                            .setName(productName)
+                                                            .build())
+                                            .build())
+                            .build());
         }
-    
+
         SessionCreateParams params = SessionCreateParams.builder()
-            .setSuccessUrl("http://127.0.0.1:5500/success.html")
-            .setCancelUrl("http://127.0.0.1:5500/cancel.html")
-            .addPaymentMethodType(PaymentMethodType.CARD)
-            .setMode(SessionCreateParams.Mode.PAYMENT)
-            .addAllLineItem(lineItems)
-            .build();
-    
+                .setSuccessUrl("http://127.0.0.1:5501/success.html")
+                .setCancelUrl("http://127.0.0.1:5501/cancel.html")
+                .addPaymentMethodType(PaymentMethodType.CARD)
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .addAllLineItem(lineItems)
+                .build();
+
         try {
             Session session = Session.create(params);
-            // productService.clearCart();
             return Response.ok(session.getUrl()).build();
         } catch (Exception e) {
             return Response.serverError().entity(e.getMessage()).build();
         }
-    }
-
-    @GET
-    @Path("/key")
-    public String getKey() {
-        return stripeKey;
     }
 }

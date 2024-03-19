@@ -1,6 +1,5 @@
 package org.acme.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.acme.model.Product;
@@ -20,8 +19,6 @@ public class ProductService {
     @Inject
     EntityManager em;
 
-    private List<Product> cart = new ArrayList<>();
-
     public List<Product> findAll() {
         return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
     }
@@ -39,13 +36,5 @@ public class ProductService {
         return em.createQuery("SELECT p FROM Product p WHERE p.category = :category", Product.class)
                 .setParameter("category", category)
                 .getResultList();
-    }
-
-    public List<Product> getCart() {
-        return cart;
-    }   
-
-    public void clearCart() {
-        cart.clear();
     }
 }
